@@ -157,6 +157,8 @@ int main(void)
     float next_sec = 0;
     size_t frames_of_current_second = 0;
     size_t fps = 0;
+    size_t max_frame_time = 0;
+
     while (!game.quit) {
         Uint32 curr_ticks = SDL_GetTicks();
         float elapsed_sec = (float) (curr_ticks - prev_ticks) / 1000.0f;
@@ -168,6 +170,10 @@ int main(void)
             fps = frames_of_current_second;
             next_sec = 0;
             frames_of_current_second = 0;
+        }
+
+        if ((curr_ticks - prev_ticks) > max_frame_time) {
+            max_frame_time = curr_ticks - prev_ticks;
         }
 
         prev_ticks = curr_ticks;
@@ -222,7 +228,7 @@ int main(void)
         }
         game.render(renderer);
         if (game.debug) {
-            game.render_debug_overlay(renderer, fps);
+            game.render_debug_overlay(renderer, fps, max_frame_time);
         }
         SDL_RenderPresent(renderer);
         //// RENDER END //////////////////////////////

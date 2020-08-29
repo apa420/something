@@ -452,7 +452,7 @@ void Game::spawn_projectile(Vec2f pos, Vec2f vel, Entity_Index shooter)
     }
 }
 
-void Game::render_debug_overlay(SDL_Renderer *renderer, size_t fps)
+void Game::render_debug_overlay(SDL_Renderer *renderer, size_t fps, size_t max_frame_time)
 {
     sec(SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255));
 
@@ -476,33 +476,38 @@ void Game::render_debug_overlay(SDL_Renderer *renderer, size_t fps)
              FONT_DEBUG_COLOR,
              FONT_SHADOW_COLOR,
              vec2(PADDING, 50 + PADDING),
+             "Highest frame time: %.0d", max_frame_time);
+    displayf(renderer, &debug_font,
+             FONT_DEBUG_COLOR,
+             FONT_SHADOW_COLOR,
+             vec2(PADDING, 2 * 50 + PADDING),
              "Mouse Position: (%.4f, %.4f)",
              mouse_position.x,
              mouse_position.y);
     displayf(renderer, &debug_font,
              FONT_DEBUG_COLOR,
              FONT_SHADOW_COLOR,
-             vec2(PADDING, 2 * 50 + PADDING),
+             vec2(PADDING, 3 * 50 + PADDING),
              "Collision Probe: (%.4f, %.4f)",
              collision_probe.x,
              collision_probe.y);
     displayf(renderer, &debug_font,
              FONT_DEBUG_COLOR,
              FONT_SHADOW_COLOR,
-             vec2(PADDING, 3 * 50 + PADDING),
+             vec2(PADDING, 4 * 50 + PADDING),
              "Projectiles: %d",
              count_alive_projectiles());
     displayf(renderer, &debug_font,
              FONT_DEBUG_COLOR,
              FONT_SHADOW_COLOR,
-             vec2(PADDING, 4 * 50 + PADDING),
+             vec2(PADDING, 5 * 50 + PADDING),
              "Player position: (%.4f, %.4f)",
              entities[PLAYER_ENTITY_INDEX].pos.x,
              entities[PLAYER_ENTITY_INDEX].pos.y);
     displayf(renderer, &debug_font,
              FONT_DEBUG_COLOR,
              FONT_SHADOW_COLOR,
-             vec2(PADDING, 5 * 50 + PADDING),
+             vec2(PADDING, 6 * 50 + PADDING),
              "Player velocity: (%.4f, %.4f)",
              entities[PLAYER_ENTITY_INDEX].vel.x,
              entities[PLAYER_ENTITY_INDEX].vel.y);
